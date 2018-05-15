@@ -1,0 +1,120 @@
+﻿@model IEnumerable<WebApplication1.Models.Post>
+@{
+    ViewBag.Title = "Index";
+}
+<body>
+            <div id="search">
+		<!--using uses a form that creates the 3 following textBox-->
+                @using (Html.BeginForm())
+            {
+
+                    <p>
+			<!--creates the paramet name, word, title in the website-->
+                        Name: @Html.TextBox("byName") <br />
+                        Word: @Html.TextBox("byLetter")<br />
+                        Title: @Html.TextBox("byTitle")<br />
+                        <input type="submit" value="Filter" />
+                    </p>
+                }
+            </div>
+      <div id="content">
+        <div id="mainContent">
+            @foreach (var item in Model)
+            {<!--this loop goes over the POST table line by line and display the data of every line on the screen-->
+                 <section>
+                <article class="blogPost">
+                    <header>
+						
+						<!--display the  modeltitle (goes to the cuurent line of the table, takes the title of the post)-->
+						
+                        <h2>@Html.DisplayFor(modelItem => item.Title)</h2>
+						
+						<!--Html.DisplayFor(modelItem => item.Enrollments.Count) goes to the current line (cuurent item= current post) and goes to the enrollment table and counts the number of comments of this post, puts it to the modelItem parameter and then shows it to the screen.-->
+                   
+                        <p>Posted on @Html.DisplayFor(modelItem => item.Date) by @Html.DisplayFor(modelItem => item.WriterName) - @Html.DisplayFor(modelItem => item.Enrollments.Count) Comments</p>
+                    </header>
+                    <div>
+                        <p>@Html.DisplayFor(modelItem => item.Content)</p>
+                     
+                        <section>
+                            
+                                @if (!(item.TrendPicture.IsEmpty()))
+                                {<!--if there is not url of the picture then the squere of the picture will not show on the screen.-->
+                                        <p>
+                                        <img class="alignright wp-image-102447 size-full" src="@Html.DisplayTextFor(modelItem => item.TrendPicture)" alt="" width="200" height="200"  />
+                                    </p>
+                                }
+                            
+                            
+                                @if (!(item.TrendVideoURL.IsEmpty()))
+                                {<!--if there is not url of the video then the squere of the picture will not show on the screen.-->
+                                    <p>
+                                        <iframe src="@Url.Content(item.TrendVideoURL)" width="250" height="200"></iframe>
+                                    </p>
+                                }
+                            
+                        </section>
+              
+                    </div>
+                </article>
+            </section>
+			
+                                  <section id="comments">
+                        <h3>Comments</h3>
+                       @foreach (var item2 in item.Enrollments)
+                       {
+				<!--this loop goes over the currend post (item) and then goes to the enrollments table. the enrollments table goes to the suitable comments and shows the comments of every post.-->
+                        <article>
+                            <header>
+                                Comment Title: @Html.DisplayFor(modelItem => item2.Comment.CommentTitle)
+                                <br>
+                                Wrote by: @Html.DisplayFor(modelItem => item2.Comment.WriterName) on @Html.DisplayFor(modelItem => item2.Comment.Date)
+                            </header>
+                            <p>@Html.DisplayFor(modelItem => item2.Comment.Content)</p>
+                        </article>
+                       }
+                    </section>
+
+                using (Html.BeginForm("AddComment", "NewBlog"))
+                {<!--creates form when we press on the funcation AddComment in the page newBlog-->
+                    
+                    @Html.AntiForgeryToken()
+                    <h3>Post a comment</h3>
+
+			
+                    @Html.Hidden("ID", item.ID)
+			<!--the id of the post that link to the post in the enrollments table-->
+			
+
+                    <p>
+                        Writer Name: <input type="text" required="required" name="WriterName"><br>
+                    </p>
+                        <p>
+                            Url: <input type="url" required="required" name="URL"><br>
+                        </p>
+                        <p>
+                            Title: <input type="text" required="required" name="CommentTitle"><br>
+                        </p>
+                            <p>
+                                Content: <input type="text" required="required" name="Content"><br>
+                            </p>
+			<!--submit send all the parameters to the addComment funcation that apear in the controller-->
+                            <p><input type="submit" value="Post comment" /></p>
+                }
+
+            }
+
+
+    <div>
+			<!--when we press on the button "View all Posts", we go ti the Index function that apper in the Controlloer in Posts and then diasply the page on the screen (of the index)-->
+           @Html.ActionLink("View All Posts", "Index","Posts")  
+				
+            @if (User.IsInRole("Admin"))
+            {<!--if the user is admin we see also on the screen the option of manage comments--> 
+           @Html.ActionLink("Manage Comments", "Index", "Comments")
+            }
+    </div>
+
+        </div>
+    </div>
+</body>

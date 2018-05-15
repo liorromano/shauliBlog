@@ -1,0 +1,324 @@
+﻿/* Lior Romano ID-301655239 Guy Orbach ID-304820418 */
+/*------------------------------
+=BASIC SETUP
+------------------------------*/
+@font-face {
+    font-family: myFirstFont;
+    src: url(/fonts/AmaranthItalic.otf);
+}
+/* Makeshift CSS Reset */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#transDemo2 div /* RSS's logo's animation */ {
+    height: 30px;
+    width: 30px;
+    text-align: left;
+    -webkit-transition: all 2s ease-in-out;
+    -moz-transition: all 2s ease-in-out;
+    -ms-transition: all 2s ease-in-out;
+    transition: all 2s ease-in-out;
+}
+
+
+    #transDemo2 div:hover, #transDemo2 div.hover_effect /* RSS's logo's animation */ {
+        -webkit-transform: rotate(720deg) scale(2,2);
+        -moz-transform: rotate(720deg) scale(2,2);
+        -ms-transform: rotate(720deg) scale(2,2);
+        transform: rotate(720deg) scale(2,2);
+    }
+/* Tell the browser to render HTML 5 elements as block */
+header, footer, section, aside, nav, article {
+    display: block;
+}
+
+body {
+    margin: 0 auto;
+    padding: 22px 0;
+    width: 940px;
+    font: 13px/22px Helvetica, Arial, sans-serif;
+    background: #F0F0F0;
+}
+
+h1 {
+    text-shadow: 3px 3px #dddddd; /* shadow for "Ha-Blog Shel Shauli" title */
+}
+
+h1, h2 {
+    font-size: 28px;
+    line-height: 44px;
+    padding: 22px 0;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 22px;
+    padding: 11px 0;
+}
+
+p {
+    padding-bottom: 22px;
+}
+#transition {
+    width: 100px;
+    height: 100px;
+    background: grey;
+    -webkit-transition: width 2s; /* For Safari 3.1 to 6.0 */
+    transition: width 2s;
+}
+
+#transition:hover {
+    width: 200px;
+}
+#search {
+    /*The search box */
+    border: 2px solid #a1a1a1;
+    padding: 10px 40px;
+    background: #dddddd;
+    width: 300px;
+    border-radius: 25px;
+}
+
+
+footer {
+    
+    position: absolute;
+    left: 0;
+    width: 100%;
+    background: #222;
+}
+
+    footer div {
+        display: table;
+        margin: 0 auto;
+        padding: 44px 0;
+        width: 940px;
+        color: #777;
+    }
+
+        footer div section {
+            display: table-cell;
+            width: 300px;
+        }
+
+
+    /*text-shadow*/
+    footer h3 {
+        color: #FFF;
+        text-shadow: 1px 1px #DDDDDD, 1px 1px #DDDDDD;
+    }
+
+    footer a {
+        color: #999;
+    }
+
+        footer a:hover {
+            color: #FFF;
+            text-decoration: none;
+        }
+
+    footer ul {
+        margin: 0 0 0 40px;
+        list-style: square;
+        color: #565656;
+    }
+
+        footer ul li a {
+            display: block;
+        }
+
+footer div #about,
+footer div #blogroll {
+    -webkit-column-count: 3; /* Chrome, Safari, Opera */
+    -moz-column-count: 3; /* Firefox */
+    column-count: 3;
+    -webkit-column-gap: 40px; /* Chrome, Safari, Opera */
+    -moz-column-gap: 40px; /* Firefox */
+    column-gap: 40px;
+    -webkit-column-rule-style: solid; /* Chrome, Safari, Opera */
+    -moz-column-rule-style: solid; /* Firefox */
+    column-rule-style: solid;
+}
+
+
+/*------------------------------
+=NAVIGATION
+------------------------------*/
+
+nav {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    background: -webkit-linear-gradient(#333333, #222222); /* gradient background */
+}
+
+    nav ul {
+        margin: 0 auto;
+        width: 940px;
+        list-style: none;
+    }
+
+        nav ul li {
+            float: left;
+        }
+
+            nav ul li a {
+                display: block;
+                margin-right: 20px;
+                width: 140px;
+                font-size: 14px;
+                line-height: 44px;
+                text-align: center;
+                text-decoration: none;
+                color: #777;
+            }
+
+                nav ul li a:hover {
+                    color: #fff;
+                }
+
+            nav ul li.selected a {
+                color: #fff;
+            }
+
+            nav ul li.subscribe a {
+                margin-left: 20px;
+                padding-left: 0px;
+                text-align: left;
+                /*background: url("images/rss.png") left center no-repeat;*/
+            }
+
+
+/*------------------------------
+=INTRODUCTION
+------------------------------*/
+
+#intro {
+    position: relative;
+    margin-top: 66px;
+    padding: 44px;
+    background: -webkit-linear-gradient(#b4dd10, #467612); /* gradient background */
+    /* Background-size not implemented yet */
+    -webkit-background-size: 100%;
+    -o-background-size: 100%;
+    -khtml-background-size: 100%;
+    /* Border-radius not implemented yet */
+    -moz-border-radius: 22px;
+    -webkit-border-radius: 22px;
+}
+
+    #intro h2, #intro p {
+        position: relative;
+        z-index: 9999;
+        width: 436px;
+    }
+
+    #intro h2 {
+        padding: 0 0 22px 0;
+        font-weight: normal;
+        color: #fff;
+    }
+
+    #intro p {
+        padding: 0;
+        color: #d9f499;
+    }
+
+    #intro img {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 653px;
+        height: 100%;
+        /* Border-radius not implemented yet */
+        -moz-border-radius: 22px;
+        -webkit-border-radius: 22px;
+    }
+
+
+/*------------------------------
+=CONTENT AREA AND SIDEBAR LAYOUT
+------------------------------*/
+
+#content {
+    display: table;
+    width: 100%;
+}
+
+#mainContent {
+    display: table-cell;
+    width: 620px;
+    padding-right: 22px;
+}
+
+aside {
+    display: table-cell;
+    width: 30%;
+    background: url("/images/sidebar_background.png") top left;
+}
+
+    /*------------------------------
+=SIDEBAR
+------------------------------*/
+    aside section {
+        margin: 22px 0 0 22px;
+        padding: 11px 22px;
+        background: -webkit-linear-gradient(#e1e1e1, #ebebeb); /* gradient background */
+        /* Border-radius not implemented yet */
+        -moz-border-radius: 11px;
+        -webkit-border-radius: 11px;
+    }
+
+        aside section ul {
+            margin: 0 0 0 22px;
+            list-style: none;
+        }
+
+            aside section ul li a {
+                display: block;
+                text-decoration: none;
+                color: #000;
+            }
+
+                aside section ul li a:hover {
+                    text-decoration: underline;
+                }
+
+/*------------------------------
+=BLOG POST
+------------------------------*/
+.blogPost header p, .blogPost header p a {
+    font-size: 14px;
+    font-style: italic;
+    color: #777;
+}
+
+    .blogPost header p a:hover {
+        text-decoration: none;
+        color: #000;
+    }
+
+.blogPost div {
+    font-family: myFirstFont; /*change font*/
+    /* Column-count not implemented yet */
+    -moz-column-count: 2;
+    -webkit-column-count: 2;
+    /* Column-gap not implemented yet */
+    -moz-column-gap: 22px;
+    -webkit-column-gap: 22px;
+}
+
+.blogPost img {
+    margin: 22px 0;
+    width: 100%;
+    -webkit-box-shadow: 3px 3px 7px #777;
+}
+
+.blogPost video {
+    margin: 12px 0;
+    width: 100%;
+    height: auto;
+    -webkit-box-shadow: 3px 3px 7px #777;
+}

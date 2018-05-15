@@ -1,0 +1,27 @@
+﻿<Properties StartupConfiguration="{C9630163-3D78-4843-8A2E-D7EABEB4D3FE}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="WebApplication1/Views/Admins/Index.cshtml">
+    <Files>
+      <File FileName="WebApplication1/Controllers/PostsController.cs" Line="51" Column="64" />
+      <File FileName="WebApplication1/Views/Posts/ManagePostComments.cshtml" Line="32" Column="155" />
+      <File FileName="WebApplication1/Views/Posts/Index.cshtml" Line="40" Column="74" />
+      <File FileName="WebApplication1/Views/Posts/Edit.cshtml" Line="11" Column="1" />
+      <File FileName="WebApplication1/Views/Fans/Index.cshtml" Line="112" Column="131" />
+      <File FileName="WebApplication1/Controllers/FansController.cs" Line="156" Column="82" />
+      <File FileName="WebApplication1/Controllers/AdminsController.cs" Line="7" Column="1" />
+      <File FileName="WebApplication1/Views/Admins/Index.cshtml" Line="50" Column="103" />
+      <File FileName="WebApplication1/Views/Shared/_Layout.cshtml" Line="24" Column="25" />
+      <File FileName="WebApplication1/Views/Shared/_LoginPartial.cshtml" Line="1" Column="1" />
+      <File FileName="WebApplication1/Views/Shared/Error.cshtml" Line="1" Column="1" />
+      <File FileName="WebApplication1/Views/Shared/Lockout.cshtml" Line="1" Column="1" />
+      <File FileName="WebApplication1/DAL/BlogContext.cs" Line="27" Column="10" />
+      <File FileName="WebApplication1/DAL/BlogInitializer.cs" Line="25" Column="22" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.WebApplication1 PreferredExecutionTarget="MonoDevelop.Default" />
+</Properties>

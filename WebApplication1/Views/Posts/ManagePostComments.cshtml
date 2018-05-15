@@ -1,0 +1,44 @@
+﻿@model IEnumerable<WebApplication1.Models.Enrollment>
+
+@{
+    ViewBag.Title = "ManageComments";
+}
+
+<h2>Manage Comments</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Comment Title
+        </th>
+        <th>
+            Writer Name
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment.CommentTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment.WriterName)
+            </td>
+@if (User.IsInRole("Admin"))
+{
+            <td>
+			<!-- when we press on the btn "Delete" it goes to the fucation delete the apper in the Comments Controller with the ID of the comment we want to delete  -->
+                @Html.ActionLink("Delete", "Delete", "Comments",new { id = item.CommentID },null) 
+                @Html.ActionLink("Edit", "Edit", "Comments", new { id = item.CommentID }, null)
+            </td>
+}
+        </tr>
+
+    }
+
+</table>
+<p>
+    @Html.ActionLink("Back to List", "Index","Posts")
+</p>

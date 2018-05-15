@@ -1,0 +1,54 @@
+﻿@model IEnumerable<WebApplication1.Models.Post>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WriterName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WriterName)
+            </td>
+            @if (User.IsInRole("Admin"))
+            {
+
+                <td>
+                    @Html.ActionLink("Delete", "Delete", "Posts", new { id = item.ID }, null) 
+                    @Html.ActionLink("Edit", "Edit", "Posts", new { id = item.ID }, null) 
+                </td>
+            }
+            <td>
+                @Html.ActionLink("Details", "Details", "Posts", new { id = item.ID }, null) 
+                @Html.ActionLink("Comments", "ManagePostComments", "Posts",new { id = item.ID },null)
+            </td>
+        </tr>
+
+    }
+
+</table>
+
+<div>
+    @Html.ActionLink("Add New Post", "Create", "Posts") 
+   @Html.ActionLink("Back to Blog", "Index", "NewBlog")
+</div>
+
+
+

@@ -1,0 +1,165 @@
+﻿@*Advanced Search section*@
+<section id="searchc">
+    <asp:form action="action_page.php" alt="Searchc">
+        <table id="searchbox" class="centerTable" cellspacing="8" style="border-collapse:inherit">
+            <tr>
+                <h4 align="center">Advanced Search</h4>
+                <td>Post Title:</td>
+                <td>
+                    <input type="text" name="titlec" id="titlec">
+                </td>
+                <td>Post Author:</td>
+                <td>
+                    <input type="text" name="authorc" id="postauthorc">
+                </td>
+            </tr>
+            <tr>
+                <td>Comment Author:</td>
+                <td>
+                    <input type="text" name="commentc" id="commentc">
+                </td>
+                <td colspan="6" align="right">
+					
+                    <input type="submit" value="Search" id="submitsearchc">
+                </td>
+            </tr>
+            @* to add a group by tick *@
+        </table>
+    </asp:form>
+</section>
+@* Advanced search results container *@
+
+<section>
+    <div class="container">
+        <h3>Advanced Search Results</h3>
+        <table class="table" style="width: auto" id="resultc">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Post Author</th>
+                    <th>Comment Author</th>
+                    <th>Comment Content</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</section>
+@* GroupBy results container (document.ready script)*@
+<section>
+	<!--display the name of the post and the number of comments of every post (this for the first script) -->
+    <div class="container">
+        <h3>Comments per post (Join+GroupBy)</h3>
+        <table class="table" style="width: auto" id="resultcgroup">
+            <thead>
+                <tr>
+                    <th>PostTitle</th>
+                    <th>NumOfComments</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <h3>Comments per Comment Writer (Join+GroupBy)</h3>
+        <table class="table" style="width: auto" id="result">
+            <thead>
+                <tr>
+                    <th>Writer Name</th>
+                    <th>NumOfComments</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</section>
+
+
+<script>
+    $(function getGroupBy() {
+        $(document).ready(function () {
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: "/Admins/getMaxComments",
+                success: function (data) {
+                    if (data.length > 0) {
+                        var da = [];
+                        for (var i = 0; i < data.length; i++) {
+                            da.push('<tr>');
+                            da.push("<td>" + data[i].PostName + "</td>");
+                            da.push("<td>" + data[i].Amount+ "</td>");
+                            da.push('</tr>');
+                        }
+                        $("#resultcgroup tbody").append(da);
+                    }
+                }
+            });
+        })
+    })
+</script>
+
+<script>
+    $(function search() {
+        $(document).ready(function () {
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: "/Admins/getNumOfEachWriterComment",
+                success: function (data) {
+                    if (data.length > 0) {
+                        var da = [];
+                        for (var i = 0; i < data.length; i++) {
+                            da.push('<tr>');
+                            da.push("<td>" + data[i].PostName + "</td>");
+                            da.push("<td>" + data[i].Amount + "</td>");
+                            da.push('</tr>');
+                        }
+                        $("#result tbody").append(da);
+                    }
+                }
+            });
+        })
+    })
+</script>
+@* Advanced search script *@
+<script>
+    $(function search2() {
+        $("#submitsearchc").click(function () {
+            $("#resultc tbody").html("");
+            if (($('input#titlec').val().length > 0) || ($('input#postauthorc').val().length > 0) || ($('input#commentc').val().length > 0)) {
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: "/Admins/getDatac",
+                    data: {
+                        t_title: $('input#titlec').val(),
+                        t_author: $('input#postauthorc').val(),
+                        t_cauthor: $('input#commentc').val()
+                    },
+                    success: function (data) {
+                        console.log(data)
+                        if (data.length > 0) {
+                            var da = [];
+                            for (var i = 0; i < data.length; i++) {
+                                da.push('<tr>');
+                                da.push("<td>" + data[i].PostTitle +"&nbsp;&nbsp;&nbsp;&nbsp;</td>");
+                                da.push("<td>" + data[i].PostAuthorName + "</td>");
+                                da.push("<td>" + data[i].CommentAuthorName + "</td>");
+                                da.push("<td>" + data[i].CommentContent + "</td>");
+                                da.push('</tr>');
+                            }
+	                       //the answer of the script and then the result c display
+                            $("#resultc tbody").append(da);
+                        }
+                    }
+                });
+            }
+        })
+    });
+</script>

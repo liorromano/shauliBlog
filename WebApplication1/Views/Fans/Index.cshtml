@@ -1,0 +1,127 @@
+﻿@model IEnumerable<WebApplication1.Models.Fan>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+    @Html.ActionLink("Create New", "Create")
+    @using (Html.BeginForm())
+    {<!-- this form creates a search form that we can see the list of fans  -->
+    <p>
+        Name: @Html.TextBox("SearchString") <br />
+	<!--  the defualt is All gender -->
+        Gender: @Html.DropDownList("fanGender", "All")<br />
+        Time In Club: @Html.TextBox("time")<br />
+        <input type="submit" value="Filter" />
+    </p>
+    }
+
+<table class="table">
+   
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Birthday)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gender)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.City)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TimeInClub)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Birthday)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Gender)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.City)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TimeInClub)
+        </td>
+@if (User.IsInRole("Admin"))
+{ 
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) 
+            @Html.ActionLink("Details", "Details", new { id = item.ID }) 
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+        </td>
+}
+    </tr>
+}
+</table>
+<!-- API of google map  -->
+<script src="http://maps.google.com/maps/api/js?key=AIzaSyB21v2myXraj5LfOBoVU9JwqR3MLS1K9Q4&callback=initMap"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+<script>
+    function initialize() {
+	//the dafualt coordinate (coordinate of tel aviv) that we see in the init map
+        var latlng = new google.maps.LatLng(32.098473, 34.831965999999966);
+	//this parameter will save the coordinate
+        var geocoder;
+        var map;
+	//if we get a string of address (for exemple: london) this funcation will convert this adress string to coordinate
+        geocoder = new google.maps.Geocoder();
+        var mapOptions =
+            {
+	           //the default zoom of the map
+                zoom: 10,
+	            //how the map will be disaply? as a road map
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                center: latlng
+    }
+	//this line say that we need to use in the map that we declerate in the 124 line
+        map = new google.maps.Map(document.getElementById('map'), mapOptions);
+        $.getJSON("/Fans/getCity", function (results) {
+            for (var x = 0; x < results.length; x++) { 
+	            //this loop goes over the list of the all fans city and puts a pin on the map
+                $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address=' + results[x].addr + '&sensor=false', null,
+                    function (data) {
+                        var p = data.results[0].geometry.location
+                        var latlng = new google.maps.LatLng(p.lat, p.lng);
+                        var marker = new google.maps.Marker({
+                            position: latlng,
+                            map: map,
+                        });
+	                       //those code line say that when we press on some pin the map will do zoom in to the specified location
+                          google.maps.event.addListener(marker, function () { });
+                        google.maps.event.addListener(marker, 'click', function () {
+                            map.setZoom(18);
+                            map.setCenter(marker.getPosition());
+                        });
+                    });
+            }
+        });
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+<div id="map" style="width:100%; height: 300px;"></div>
+
+
+

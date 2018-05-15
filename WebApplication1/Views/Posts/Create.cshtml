@@ -1,0 +1,87 @@
+﻿@model WebApplication1.Models.Post
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Post</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.WriterName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.WriterName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.WriterName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.URL, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.URL, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.URL, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+            </div>
+        </div>
+       
+        <div class="form-group">
+            @Html.LabelFor(model => model.TrendPicture, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">   
+                <div class="col-md-10">
+				
+           <!--this next line say that it must be a url value-->
+				
+                    @Html.EditorFor(model => model.TrendPicture, new { UrlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TrendPicture, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+
+		<!--this next line say that it must be a url value-->
+		
+            @Html.LabelFor(model => model.TrendVideoURL, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TrendVideoURL, new { UrlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TrendVideoURL, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+			<!-- when you press on the create buuton is goes to the funcation creates the apper in the post controller-->
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+	<!-- When you press on the button "Back To List" go the the index function that appear in the Post contolloer  -->
+   @Html.ActionLink("Back to List", "Index")
+	<!--When you press on the button "Back to Blog" it goes to the funcation Index that apper in the NewBlog constoller  -->
+   @Html.ActionLink("Back to Blog", "Index", "NewBlog")   
+</div>
